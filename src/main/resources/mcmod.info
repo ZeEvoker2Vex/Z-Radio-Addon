@@ -1,0 +1,17 @@
+[
+{
+  "modid": "z-radio",
+  "name": "Radio Addon",
+  "description": "This mod adds a functionnal radio to Minecraft. Addon from ModularVoiceChat mod.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["ZeEvoker2Vex"],
+  "credits": "Developped by ZeEvoker2Vex.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": [],
+  "requiredMods": ["modularvc"]
+}
+]

@@ -1,0 +1,12 @@
+{
+  "radio_on": {
+    "category": "player",
+    "subtitle": "radio.subtitle.radio_on",
+    "sounds": [ "z-radio:radio_on"]
+  },
+  "radio_off": {
+    "category": "player",
+    "subtitle": "radio.subtitle.radio_off",
+    "sounds": [ "z-radio:radio_off"]
+  }
+}
