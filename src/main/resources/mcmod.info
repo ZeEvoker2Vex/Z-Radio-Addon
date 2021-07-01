@@ -1,7 +1,7 @@
 [
 {
   "modid": "z-radio",
-  "name": "Radio Addon",
+  "name": "Z-Radio Addon",
   "description": "This mod adds a functionnal radio to Minecraft. Addon from ModularVoiceChat mod.",
   "version": "${version}",
   "mcversion": "${mcversion}",
