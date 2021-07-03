@@ -18,7 +18,7 @@ public class RadioAddon {
 
     public static final String MOD_ID = "z-radio";
     public static final String NAME = "Radio Addon";
-    public static final String VERSION = "1.0.1";
+    public static final String VERSION = "1.0.2";
 
     public static final String CONFIG_FOLDER = "Z-MVC-Addons";
 

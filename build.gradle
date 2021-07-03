@@ -14,7 +14,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.0.1'
+version = '1.0.2'
 group = 'fr.zeevoker2vex.radio' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'Z-Radio'
 compileJava.options.encoding = 'UTF-8'

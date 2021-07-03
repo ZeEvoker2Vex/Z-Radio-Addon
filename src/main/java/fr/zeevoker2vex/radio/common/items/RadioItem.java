@@ -28,12 +28,10 @@ public class RadioItem extends Item {
 
     public static final String STATE_KEY_TAG = "state";
     public static final String FREQUENCY_KEY_TAG = "frequency";
+    public static final String UUID_KEY_TAG = "UUID";
 
     @SideOnly(Side.CLIENT)
     public static final String VOLUME_KEY_TAG = "volume";
-
-    @SideOnly(Side.SERVER)
-    public static final String UUID_KEY_TAG = "UUID";
 
     public RadioItem() {
         setRegistryName(RadioAddon.MOD_ID, "radio");
@@ -144,7 +142,6 @@ public class RadioItem extends Item {
         return 100;
     }
 
-    @SideOnly(Side.SERVER)
     public static void initRadioUUID(ItemStack stack){
         NBTTagCompound nbt;
         if(!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
@@ -153,7 +150,6 @@ public class RadioItem extends Item {
         nbt.setUniqueId(UUID_KEY_TAG, UUID.randomUUID());
     }
 
-    @SideOnly(Side.SERVER)
     public static UUID getRadioUUID(ItemStack stack){
         NBTTagCompound nbt;
         if(!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
@@ -164,7 +160,6 @@ public class RadioItem extends Item {
         return null;
     }
 
-    @SideOnly(Side.SERVER)
     public static boolean radioHasUUID(ItemStack stack){
         return getRadioUUID(stack)!=null;
     }
