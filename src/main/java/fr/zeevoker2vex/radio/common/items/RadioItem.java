@@ -169,7 +169,6 @@ public class RadioItem extends Item {
         return getRadioUUID(stack)!=null;
     }
 
-    @SideOnly(Side.SERVER)
     public static boolean areDifferentRadio(ItemStack stack1, ItemStack stack2){
         if(!isItemRadio(stack1) || !isItemRadio(stack2)) return true;
         if(!radioHasUUID(stack1)){

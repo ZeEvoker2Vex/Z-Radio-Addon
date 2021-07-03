@@ -34,7 +34,6 @@ public class RadioManager {
     public static void connectToFrequency(EntityPlayer player, short frequency){
         if(frequency>=1 && frequency<=1000) {
             playerFrequency.put(player, frequency);
-
         }
     }
 
@@ -51,7 +50,7 @@ public class RadioManager {
         // Si il parle et qu'il n'était pas en train de parler OU si il s'arrête de parler alors qu'il parlait : playsound
         if((speaking && !isSpeakingOn(player)) || (!speaking && isSpeakingOn(player))) playRadioSoundToFrequency(player, speaking);
 
-        if(speaking) playersSpeaking.add(player);
+        if(speaking && !isSpeakingOn(player)) playersSpeaking.add(player);
         else playersSpeaking.remove(player);
     }
 
@@ -60,6 +59,7 @@ public class RadioManager {
     }
 
     public static void playRadioSoundToFrequency(EntityPlayer player, boolean speaking){
+        if(!isConnectOnRadio(player)) return;
         getPlayersConnectedOnFrequency(getFrequency(player))
                 .forEach(playerEntity -> NetworkHandler.getInstance().getNetwork().sendTo(new PlayerSpeakingOnRadioPacket(speaking), (EntityPlayerMP) playerEntity));
     }

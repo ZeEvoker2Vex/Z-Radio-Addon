@@ -53,9 +53,10 @@ public class ServerProxy extends CommonProxy {
     public void onPlayerLeave(PlayerEvent.PlayerLoggedOutEvent event){
         EntityPlayer player = event.player;
         if(RadioManager.isConnectOnRadio(player)){
+            // D'abord on éteint les radios, ensuite il arrête de parler, puis on le déconnecte.
             RadioItem.turnOffAllRadios(player);
-            RadioManager.disconnectPlayerFromRadio(player);
             RadioManager.updatePlayerSpeaking(player, false);
+            RadioManager.disconnectPlayerFromRadio(player);
         }
     }
 
@@ -64,9 +65,10 @@ public class ServerProxy extends CommonProxy {
         if(event.getEntity() instanceof EntityPlayer){
             EntityPlayer player = (EntityPlayer) event.getEntity();
             if(RadioManager.isConnectOnRadio(player)){
+                // D'abord on éteint les radios, ensuite il arrête de parler, puis on le déconnecte.
                 RadioItem.turnOffAllRadios(player);
-                RadioManager.disconnectPlayerFromRadio(player);
                 RadioManager.updatePlayerSpeaking(player, false);
+                RadioManager.disconnectPlayerFromRadio(player);
             }
         }
     }
@@ -88,15 +90,19 @@ public class ServerProxy extends CommonProxy {
             // Si tu te fais clear ou drop la radio, on te déconnecte et elle s'éteint
             if(clearItem){
                 if(RadioManager.isConnectOnRadio(player)){
+                    // D'abord on éteint la radio, ensuite il arrête de parler, puis on le déconnecte.
                     RadioItem.updateItemTag(from, false, Short.toString(RadioItem.getItemFrequency(from)));
-                    RadioManager.disconnectPlayerFromRadio(player);
                     RadioManager.updatePlayerSpeaking(player, false);
+                    RadioManager.disconnectPlayerFromRadio(player);
                 }
             }
             // Si tu changes d'item alors que tu avais une radio (on vérifie quand même que ce soit une radio en "from")
             if(changeRadio && RadioItem.isItemRadio(from)){
                 // Si tu étais en train de parler
                 if(RadioManager.isSpeakingOn(player)){
+                    // Soit on change de radio et on arrêté de parler sur la fréquence actuelle, soit on a plus de fréquence donc "déconnexion".
+                    RadioManager.playRadioSoundToFrequency(player, false);
+
                     // Si tu changes en fait pour une radio en parlant, ça te change de fréquence en éteignant l'autre radio
                     if(RadioItem.isItemRadio(to)){
                         RadioItem.updateItemTag(from, false, Short.toString(RadioItem.getItemFrequency(from)));
