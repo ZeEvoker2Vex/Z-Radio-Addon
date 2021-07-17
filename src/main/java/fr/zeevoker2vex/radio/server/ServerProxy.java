@@ -2,6 +2,8 @@ package fr.zeevoker2vex.radio.server;
 
 import fr.nathanael2611.modularvoicechat.api.VoiceDispatchEvent;
 import fr.nathanael2611.modularvoicechat.api.VoiceProperties;
+import fr.nathanael2611.modularvoicechat.config.ServerConfig;
+import fr.nathanael2611.modularvoicechat.util.Helpers;
 import fr.zeevoker2vex.radio.common.CommonProxy;
 import fr.zeevoker2vex.radio.common.items.RadioItem;
 import fr.zeevoker2vex.radio.common.registry.ItemRegistry;
@@ -40,12 +42,13 @@ public class ServerProxy extends CommonProxy {
         EntityPlayer player = event.getSpeaker();
         if(RadioManager.isConnectOnRadio(player) && RadioManager.isSpeakingOn(player)){
             short frequency = RadioManager.getFrequency(player);
+
             List<EntityPlayer> connected = RadioManager.getPlayersConnectedOnFrequency(frequency);
             for(EntityPlayer target : connected){
                 if(player==target) continue;
-                event.dispatchTo((EntityPlayerMP) target, 100);
+                event.setProperties(VoiceProperties.builder().with("isRadio", true).build());
+                event.dispatchTo((EntityPlayerMP) target, 100, VoiceProperties.builder().with("isRadio", true).build());
             }
-            event.setProperties(VoiceProperties.builder().with("isRadio", true).build());
         }
     }
 

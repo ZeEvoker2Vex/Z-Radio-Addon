@@ -4,6 +4,7 @@ import fr.nathanael2611.modularvoicechat.api.VoiceKeyEvent;
 import fr.nathanael2611.modularvoicechat.api.VoicePlayEvent;
 import fr.nathanael2611.modularvoicechat.client.gui.GuiConfig;
 import fr.nathanael2611.modularvoicechat.client.voice.audio.MicroManager;
+import fr.nathanael2611.modularvoicechat.util.AudioUtil;
 import fr.zeevoker2vex.radio.common.CommonProxy;
 import fr.zeevoker2vex.radio.common.RadioAddon;
 import fr.zeevoker2vex.radio.common.items.RadioItem;
@@ -20,6 +21,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.input.Keyboard;
+import uk.me.berndporr.iirj.ChebyshevI;
 
 public class ClientProxy extends CommonProxy {
 
@@ -28,6 +30,9 @@ public class ClientProxy extends CommonProxy {
     private boolean speaking = false;
     private Minecraft mc;
     public static ItemStack lastRadioUsed = ItemStack.EMPTY;
+
+    public ChebyshevI chebyshevFilter;
+    public int gainRadio = 5;
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
@@ -38,6 +43,9 @@ public class ClientProxy extends CommonProxy {
         ClientRegistry.registerKeyBinding(SPEAK_ON_RADIO);
 
         MinecraftForge.EVENT_BUS.register(this);
+
+        chebyshevFilter = new ChebyshevI();
+        chebyshevFilter.bandPass(2, 48000, 2000, 1200, 1);
     }
 
     @Override
@@ -49,6 +57,16 @@ public class ClientProxy extends CommonProxy {
     public void onVoiceKey(VoiceKeyEvent event) {
         if (SPEAK_ON_RADIO.isKeyDown()) {
             event.setCanceled(true);
+        }
+    }
+    @SubscribeEvent
+    public void onVoicePlayEvent(VoicePlayEvent event) {
+        if(event.getProperties().getBooleanValue("isRadio")) {
+            short[] samples = AudioUtil.bytesToShorts(event.getAudioSamples());
+            for (int i = 0; i < samples.length; i++) {
+                samples[i] = (short)(chebyshevFilter.filter((samples[i])) * 8);
+            }
+            event.setAudioSamples(AudioUtil.shortsToBytes(samples));
         }
     }
 
