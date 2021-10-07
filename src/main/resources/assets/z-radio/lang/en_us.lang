@@ -3,5 +3,96 @@ key.z-radio.speakonradio=Speak on radio
 
 item.z-radio.radio.name=Radio
 
-radio.subtitle.radio_on=Radio ON
-radio.subtitle.radio_off=Radio OFF
+subtitles.radio.on=Radio ON
+subtitles.radio.off=Radio OFF
+
+radio.responseCode.connect.success=You have just connected to the frequency.
+radio.responseCode.connect.invalidFrequency=The frequency given is invalid!
+radio.responseCode.connect.noPerm=This frequency is restricted to you!
+radio.responseCode.connect.blacklisted=This frequency is blocked!
+
+radio.responseCode.disconnect.success=You have just disconnected from the frequency.
+radio.responseCode.disconnect.already=You are already disconnected.
+
+radio.responseCode.volume.success=The volume has been changed.
+radio.responseCode.volume.invalid=The volume given is invalid!
+
+radio.gui.connectButton=Connection
+radio.gui.disconnectButton=Disconnection
+
+radio.tooltip.frequency=Frequency: %s
+radio.tooltip.volume=Volume: %s%%
+radio.tooltip.state=Currently: %s
+radio.tooltip.shift=Press Shift for more information
+radio.tooltip.info.title=Right Click to use radio:
+radio.tooltip.info.state=- Turn on/off
+radio.tooltip.info.frequency=- Change frequency
+radio.tooltip.info.volume=- Adjust volume
+radio.tooltip.info.key=Press [%s] to speak on the radio
+
+cmd.frequencies.view.title=List of frequencies used by the players:
+cmd.frequencies.view.none=No player is connected to a frequency.
+cmd.frequencies.view.restricted= [Restricted]
+cmd.frequencies.view.blacklisted= [Blacklisted]
+
+cmd.frequencies.invalidFrequency=The given frequency is invalid. It must be a number between 1 and 1000 inclusive.
+cmd.frequencies.invalidPlayer=No players named "%s" are online! You need to target an online player.
+
+cmd.frequencies.help.title=Help on the /%s command:
+cmd.frequencies.help.syntax=- Syntax: /frequencies <view/blacklisted/restricted/help> [add/remove/view] [frequency] [player]
+cmd.frequencies.help.argstitle=- Explanations of the arguments:
+cmd.frequencies.help.view==> view : shows the list of frequencies which the players use.
+
+cmd.frequencies.help.blacklisted==> blacklisted <add/remove/view> [frequency] : allows you to blacklist or re-authorize the use of a frequency and to see all those already prohibited.
+cmd.frequencies.help.restricted==> restricted <add/remove/view> [frequency] [player] : see with "/frequencies help restricted".
+cmd.frequencies.help.help==> help [arg] : shows this message. A argument of the command can be specified to know its details (e.g. /frequencies help blacklisted).
+
+cmd.frequencies.help.blacklisted.1=* view = allows you to see all blacklisted frequencies.
+cmd.frequencies.help.blacklisted.2=* add <frequency> = allows to blacklist the given frequency.
+cmd.frequencies.help.blacklisted.3=* remove <frequency> = allows you to re-authorize access to the given frequency.
+
+cmd.frequencies.help.restricted.1=* A restricted frequency is accessible only by authorized players.
+cmd.frequencies.help.restricted.2=* view = allows to see all restricted frequencies.
+cmd.frequencies.help.restricted.3=* add <frequency> = allows you to restrict the given frequency.
+cmd.frequencies.help.restricted.4=* remove <frequency> = allows you to restore public access to the given frequency.
+cmd.frequencies.help.restricted.5=* view <frequency> =  allows you to see the list of players authorized to connect to the given frequency.
+cmd.frequencies.help.restricted.6=* add <frequency> <player> = grants the player permission to join the given frequency.
+cmd.frequencies.help.restricted.7=* remove <frequency> <player> = revokes the player's permission to join the given frequency.
+
+cmd.frequencies.help.details.failed=<%s> is not an argument to the /%s command
+cmd.frequencies.help.details.title=Help on the /%s <%s> argument:
+
+cmd.frequencies.blacklisted.view.title=List of blacklisted frequencies:
+cmd.frequencies.blacklisted.view.none=No radio frequency is blacklisted.
+
+cmd.frequencies.blacklisted.add.already=This frequency is already blacklisted!
+cmd.frequencies.blacklisted.add.restricted=This frequency is restricted and so cannot be restricted!
+cmd.frequencies.blacklisted.add.success=The frequency "%s" has been blacklisted!
+cmd.frequencies.blacklisted.add.failed=Impossible to blacklist the %s frequency! (see logs)
+
+cmd.frequencies.blacklisted.remove.none=This frequency is not blacklisted!
+cmd.frequencies.blacklisted.remove.success=The %s frequency has been removed from the blacklisted frequencies!
+cmd.frequencies.blacklisted.remove.failed=Impossible to re-allow the %s frequency! (see logs)
+
+cmd.frequencies.restricted.view.title=List of restricted frequencies (use "view <frequency>" to see the players allowed to join the frequency filled in) :
+cmd.frequencies.restricted.view.none=No radio frequency is restricted.
+
+cmd.frequencies.restricted.view.freq.title=List of players allowed to join the frequency %s:
+cmd.frequencies.restricted.view.freq.none=No player is allowed to join the %s frequency!
+
+cmd.frequencies.restricted.add.already=This frequency is already restricted!
+cmd.frequencies.restricted.add.blacklisted=This frequency is blacklisted and cannot be restricted!
+cmd.frequencies.restricted.add.success=The %s frequency has been restricted!
+cmd.frequencies.restricted.add.failed=Impossible to restrict the %s frequency! (see logs)
+
+cmd.frequencies.restricted.none=This frequency is not restricted!
+cmd.frequencies.restricted.remove.success=The %s frequency has been removed from the restricted frequencies!
+cmd.frequencies.restricted.remove.failed=Impossible to remove the %s frequency from the restricted ones! (see logs)
+
+cmd.frequencies.restricted.add.player.already=The player "%s" is already allowed to join the %s frequency!
+cmd.frequencies.restricted.add.player.success=The player "%s" is now allowed to join the %s frequency!
+cmd.frequencies.restricted.add.player.failed=Impossible to allow the player "%s" to join the %s frequency! (see logs)
+
+cmd.frequencies.restricted.remove.player.already=The player "%s" is already not allowed to join the %s frequency!
+cmd.frequencies.restricted.remove.player.success=The player "%s" is no longer allowed to join the %s frequency!
+cmd.frequencies.restricted.remove.player.failed=Impossible to revoke the permission of player "%s" to join the %s frequency!

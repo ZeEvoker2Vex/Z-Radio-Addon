@@ -1,0 +1,11 @@
+{
+  "blacklisted": [10, 5],
+  "restricted": {
+    "10": [
+      {
+        "uuid": "playerUUID",
+        "name": "playerName"
+      }
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 package fr.zeevoker2vex.radio.common;
 
-import fr.zeevoker2vex.radio.common.registry.ItemRegistry;
 import fr.zeevoker2vex.radio.common.network.NetworkHandler;
+import fr.zeevoker2vex.radio.common.registry.ItemRegistry;
 import fr.zeevoker2vex.radio.common.registry.SoundRegistry;
 import fr.zeevoker2vex.radio.server.commands.FrequenciesCommand;
 import net.minecraftforge.common.MinecraftForge;
@@ -18,7 +18,7 @@ public class RadioAddon {
 
     public static final String MOD_ID = "z-radio";
     public static final String NAME = "Radio Addon";
-    public static final String VERSION = "1.0.2";
+    public static final String VERSION = "1.1.0";
 
     public static final String CONFIG_FOLDER = "Z-MVC-Addons";
 
@@ -47,5 +47,9 @@ public class RadioAddon {
     @EventHandler
     public void onServerStarting(FMLServerStartingEvent event){
         event.registerServerCommand(new FrequenciesCommand());
+    }
+
+    public static Logger getLogger() {
+        return logger;
     }
 }

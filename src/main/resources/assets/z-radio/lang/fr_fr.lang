@@ -3,5 +3,95 @@ key.z-radio.speakonradio=Parler sur la radio
 
 item.z-radio.radio.name=Radio
 
-radio.subtitle.radio_on=Radio allumée
-radio.subtitle.radio_off=Radio éteinte
+subtitles.radio.on=Radio allumée
+subtitles.radio.off=Radio éteinte
+
+radio.responseCode.connect.success=Vous venez de vous connecter à la fréquence.
+radio.responseCode.connect.invalidFrequency=La fréquence renseignée est invalide !
+radio.responseCode.connect.noPerm=Cette fréquence vous est interdite !
+radio.responseCode.connect.blacklisted=Cette fréquence est interdite d'accès !
+
+radio.responseCode.disconnect.success=Vous venez de vous déconnecter de la fréquence.
+radio.responseCode.disconnect.already=Vous êtes déjà déconnectés.
+
+radio.responseCode.volume.success=Le volume a bien été changé.
+radio.responseCode.volume.invalid=Le volume renseigné est invalide !
+
+radio.gui.connectButton=Connexion
+radio.gui.disconnectButton=Déconnexion
+
+radio.tooltip.frequency=Fréquence : %s
+radio.tooltip.volume=Volume : %s%%
+radio.tooltip.state=Actuellement : %s
+radio.tooltip.shift=Appuyez sur Shift pour + d'infos
+radio.tooltip.info.title=Clic-droit pour utiliser la radio :
+radio.tooltip.info.state=- Allumer/Éteindre
+radio.tooltip.info.frequency=- Changer de fréquence
+radio.tooltip.info.volume=- Ajuster le volume
+radio.tooltip.info.key=Appuyez sur [%s] pour parler en radio
+
+cmd.frequencies.view.title=Liste des fréquences utilisées par les joueurs :
+cmd.frequencies.view.none=Aucun joueur n'est connecté sur une fréquence.
+cmd.frequencies.view.restricted= [Restreinte]
+cmd.frequencies.view.blacklisted= [Blacklist]
+
+cmd.frequencies.invalidFrequency=La fréquence renseignée est invalide. Elle doit être un nombre compris entre 1 et 1000 inclus.
+cmd.frequencies.invalidPlayer=Aucun joueur au pseudo "%s" n'est connecté ! Vous devez cibler un joueur en ligne.
+
+cmd.frequencies.help.title=Aide sur la commande /%s :
+cmd.frequencies.help.syntax=- Syntaxe : /frequencies <view/blacklisted/restricted/help> [add/remove/view] [frequency] [player]
+cmd.frequencies.help.argstitle=- Explications des arguments :
+cmd.frequencies.help.view==> view : permet de voir la liste des fréquences que les joueurs utilisent.
+cmd.frequencies.help.blacklisted==> blacklisted <add/remove/view> [frequency] : permet d'interdire ou de ré-autoriser l'usage d'une fréquence ainsi que de voir toutes celles déjà interdites.
+cmd.frequencies.help.restricted==> restricted <add/remove/view> [frequency] [player] : voir avec "/frequencies help restricted".
+cmd.frequencies.help.help==> help [arg] : affiche ce message. Un argument de la commande peut être précisé pour connaître ses détails (ex: /frequencies help blacklisted).
+
+cmd.frequencies.help.blacklisted.1=* view = permet de voir toutes les fréquences interdites d'accès.
+cmd.frequencies.help.blacklisted.2=* add <frequency> = permet d'interdite la fréquence renseignée.
+cmd.frequencies.help.blacklisted.3=* remove <frequency> = permet de ré-autoriser l'accès à la fréquence renseignée.
+
+cmd.frequencies.help.restricted.1=* Une fréquence restreinte est accessible seulement par des joueurs y étant autorisés.
+cmd.frequencies.help.restricted.2=* view = permet de voir toutes les fréquences restreintes.
+cmd.frequencies.help.restricted.3=* add <frequency> = permet de restreindre la fréquence renseignée.
+cmd.frequencies.help.restricted.4=* remove <frequency> = permet de remettre public l'accès à la fréquence renseignée.
+cmd.frequencies.help.restricted.5=* view <frequency> = permet de voir la liste des joueurs autorisés à se connecter à la fréquence restreinte renseignée.
+cmd.frequencies.help.restricted.6=* add <frequency> <player> = autorise le joueur à rejoindre la fréquence restreinte renseignée.
+cmd.frequencies.help.restricted.7=* remove <frequency> <player> = révoque l'autorisation du joueur à rejoindre la fréquence restreinte renseignée.
+
+cmd.frequencies.help.details.failed=<%s> n'est pas un argument de la commande /%s
+cmd.frequencies.help.details.title=Aide sur l'argument /%s <%s> :
+
+cmd.frequencies.blacklisted.view.title=Liste des fréquences interdites :
+cmd.frequencies.blacklisted.view.none=Aucune fréquence radio n'est interdite.
+
+cmd.frequencies.blacklisted.add.already=Cette fréquence est déjà interdite !
+cmd.frequencies.blacklisted.add.restricted=Cette fréquence est restreinte et ne peut donc pas être interdite !
+cmd.frequencies.blacklisted.add.success=La fréquence %s a bien été interdite !
+cmd.frequencies.blacklisted.add.failed=Impossible d'interdire la fréquence %s ! (voir la console)
+
+cmd.frequencies.blacklisted.remove.none=Cette fréquence n'est pas interdite !
+cmd.frequencies.blacklisted.remove.success=La fréquence %s a bien été retirée des fréquences interdites !
+cmd.frequencies.blacklisted.remove.failed=Impossible de ré-autoriser la fréquence %s ! (voir la console)
+
+cmd.frequencies.restricted.view.title=Liste des fréquences restreintes (utilisez "view <frequency>" pour voir les joueurs autorisés à rejoindre la fréquence renseignée) :
+cmd.frequencies.restricted.view.none=Aucune fréquence radio n'est restreinte.
+
+cmd.frequencies.restricted.view.freq.title=Liste des joueurs autorisés à rejoindre la fréquence %s :
+cmd.frequencies.restricted.view.freq.none=Aucun joueur n'est autorisé à rejoindre la fréquence %s !
+
+cmd.frequencies.restricted.add.already=Cette fréquence est déjà restreinte !
+cmd.frequencies.restricted.add.blacklisted=Cette fréquence est interdite et ne peut donc pas être restreinte !
+cmd.frequencies.restricted.add.success=La fréquence %s a bien été restreinte !
+cmd.frequencies.restricted.add.failed=Impossible de restreindre la fréquence %s ! (voir la console)
+
+cmd.frequencies.restricted.none=Cette fréquence n'est pas restreinte !
+cmd.frequencies.restricted.remove.success=La fréquence %s a bien été retirée des fréquences restreintes !
+cmd.frequencies.restricted.remove.failed=Impossible d'enlever la fréquence %s de celles restreintes ! (voir la console)
+
+cmd.frequencies.restricted.add.player.already=Le joueur "%s" est déjà autorisé à rejoindre la fréquence %s !
+cmd.frequencies.restricted.add.player.success=Le joueur "%s" est désormais autorisé à rejoindre la fréquence %s !
+cmd.frequencies.restricted.add.player.failed=Impossible d'autoriser le joueur "%s" à rejoindre la fréquence %s ! (voir la console)
+
+cmd.frequencies.restricted.remove.player.already=Le joueur "%s" n'est déjà pas autorisé à rejoindre la fréquence %s !
+cmd.frequencies.restricted.remove.player.success=Le joueur "%s" n'a plus l'autorisation de rejoindre la fréquence %s !
+cmd.frequencies.restricted.remove.player.failed=Impossible de révoquer l'autorisation du joueur "%s" à rejoindre la fréquence %s ! (voir la console)

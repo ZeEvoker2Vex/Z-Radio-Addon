@@ -1,30 +1,26 @@
 package fr.zeevoker2vex.radio.client.gui;
 
 import fr.nathanael2611.modularvoicechat.util.Helpers;
-import fr.zeevoker2vex.radio.common.items.RadioItem;
+import fr.zeevoker2vex.radio.common.network.NetworkHandler;
+import fr.zeevoker2vex.radio.common.network.server.RadioChangeVolumePacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 
 public class CustomGuiSlider extends GuiButton {
 
     private float sliderValue;
     public boolean dragging;
-    private final ItemStack radioStack;
     private final float minValue;
     private final float maxValue;
 
-    public CustomGuiSlider(int buttonId, int x, int y, ItemStack radioStack, float minValueIn, float maxValue) {
+    public CustomGuiSlider(int buttonId, int x, int y, short volume, float minValue, float maxValue) {
         super(buttonId, x, y, 150, 20, "");
-        this.sliderValue = 1.0F;
-        this.radioStack = radioStack;
-        this.minValue = minValueIn;
+        this.minValue = minValue;
         this.maxValue = maxValue;
-        this.sliderValue = (minValue + RadioItem.getRadioVolume(radioStack) / maxValue);
-        displayString = "Volume: " + RadioItem.getRadioVolume(radioStack)+"%";
-
+        this.sliderValue = (minValue + volume / maxValue);
+        displayString = "Volume: "+volume+"%";
     }
 
     @Override
@@ -82,7 +78,7 @@ public class CustomGuiSlider extends GuiButton {
      */
     public void mouseReleased(int mouseX, int mouseY) {
         this.dragging = false;
-        int val = (int) (minValue + Helpers.crossMult(sliderValue, 1, maxValue));
-        RadioItem.setRadioVolume(this.radioStack, (short) val);
+        short val = (short) (minValue + Helpers.crossMult(sliderValue, 1, maxValue));
+        NetworkHandler.getInstance().getNetwork().sendToServer(new RadioChangeVolumePacket(val));
     }
 }

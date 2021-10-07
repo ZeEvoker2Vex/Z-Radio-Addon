@@ -13,7 +13,6 @@ import fr.zeevoker2vex.radio.common.network.server.PlayerSpeakingOnRadioPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -27,9 +26,8 @@ public class ClientProxy extends CommonProxy {
 
     public static final KeyBinding SPEAK_ON_RADIO = new KeyBinding("key." + RadioAddon.MOD_ID + ".speakonradio", Keyboard.KEY_X, "key.categories." + RadioAddon.MOD_ID);
 
-    private boolean speaking = false;
+    public static boolean speaking = false;
     private Minecraft mc;
-    public static ItemStack lastRadioUsed = ItemStack.EMPTY;
 
     public ChebyshevI chebyshevFilter;
     public int gainRadio = 5;
@@ -55,16 +53,15 @@ public class ClientProxy extends CommonProxy {
 
     @SubscribeEvent
     public void onVoiceKey(VoiceKeyEvent event) {
-        if (SPEAK_ON_RADIO.isKeyDown()) {
-            event.setCanceled(true);
-        }
+        if(SPEAK_ON_RADIO.isKeyDown()) event.setCanceled(true);
     }
+
     @SubscribeEvent
     public void onVoicePlayEvent(VoicePlayEvent event) {
         if(event.getProperties().getBooleanValue("isRadio")) {
             short[] samples = AudioUtil.bytesToShorts(event.getAudioSamples());
             for (int i = 0; i < samples.length; i++) {
-                samples[i] = (short)(chebyshevFilter.filter((samples[i])) * 8);
+                samples[i] = (short)(chebyshevFilter.filter((samples[i])) * gainRadio);
             }
             event.setAudioSamples(AudioUtil.shortsToBytes(samples));
         }
@@ -72,38 +69,19 @@ public class ClientProxy extends CommonProxy {
 
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase == TickEvent.Phase.START) {
-            if (!GuiConfig.audioTesting) {
-                ItemStack current = mc.player==null ? ItemStack.EMPTY : mc.player.getHeldItemMainhand();
-                // TODO SI ON N'A PAS LA RADIO EN MAIN MAIS QUE DANS LA CONFIG C'EST PAS OBLIGATOIRE, ON FAIT PAS | DIRECT DANS LA METHODE
-                if (GameSettings.isKeyDown(SPEAK_ON_RADIO) && RadioItem.isPlayerHeldActiveRadio(mc.player)) {
-                    if (MicroManager.isRunning() && !MicroManager.getHandler().isSending()) {
-                        if (!this.speaking) {
-                            NetworkHandler.getInstance().getNetwork().sendToServer(new PlayerSpeakingOnRadioPacket(true));
-                            this.speaking = true;
-                        }
-                        // Si on prend une radio ou change pour une autre tout en parlant, on change de fréquence alors on modifie la dernière radio
-                        if(RadioItem.areDifferentRadio(lastRadioUsed, current) && RadioItem.isItemRadio(current)) lastRadioUsed = current;
-
+        if(event.phase == TickEvent.Phase.START){
+            if(!GuiConfig.audioTesting){
+                if(GameSettings.isKeyDown(SPEAK_ON_RADIO) && RadioItem.isPlayerHeldActiveRadio(mc.player)){
+                    if(MicroManager.isRunning() && !MicroManager.getHandler().isSending()){
+                        if(!speaking) NetworkHandler.getInstance().getNetwork().sendToServer(new PlayerSpeakingOnRadioPacket(true));
                         MicroManager.getHandler().start();
                     }
-                } else {
-                    if (MicroManager.isRunning() && MicroManager.getHandler().isSending()) {
-                        if (this.speaking) {
-                            NetworkHandler.getInstance().getNetwork().sendToServer(new PlayerSpeakingOnRadioPacket(false));
-                            this.speaking = false;
-
-                            // Si on a arrêté de parler (si on change de main ça coupe notre voix mais plus de radio en main donc on garde l'autre)
-                            if(RadioItem.areDifferentRadio(lastRadioUsed, current) && RadioItem.isItemRadio(current)) lastRadioUsed = current;
-                        }
+                }else {
+                    if(MicroManager.isRunning() && MicroManager.getHandler().isSending()){
+                        if(speaking) NetworkHandler.getInstance().getNetwork().sendToServer(new PlayerSpeakingOnRadioPacket(false));
                     }
                 }
             }
         }
-    }
-
-    @SubscribeEvent
-    public void onVoicePlay(VoicePlayEvent event){
-        if(event.getProperties().getBooleanValue("isRadio")) event.setVolumePercent(RadioItem.getRadioVolume(lastRadioUsed));
     }
 }

@@ -1,13 +1,12 @@
 package fr.zeevoker2vex.radio.common.network.server;
 
+import fr.zeevoker2vex.radio.client.ClientProxy;
 import fr.zeevoker2vex.radio.common.items.RadioItem;
-import fr.zeevoker2vex.radio.common.registry.SoundRegistry;
 import fr.zeevoker2vex.radio.server.config.AddonConfig;
 import fr.zeevoker2vex.radio.server.radio.RadioManager;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -39,18 +38,15 @@ public class PlayerSpeakingOnRadioPacket implements IMessage {
         public IMessage onMessage(PlayerSpeakingOnRadioPacket message, MessageContext ctx) {
 
             EntityPlayer player = ctx.getServerHandler().player;
+            ItemStack stack = player.getHeldItemMainhand();
 
-            // TODO SI ON N'A PAS LA RADIO EN MAIN MAIS QUE DANS LA CONFIG C'EST PAS OBLIGATOIRE, ON FAIT PAS | DIRECT DANS LA METHODE
-            boolean heldRadio = RadioItem.isPlayerHeldActiveRadio(player);
-            if(heldRadio) RadioManager.connectToFrequency(player, RadioItem.getItemFrequency(player.getHeldItemMainhand()));
+            short frequency = RadioItem.getRadioFrequency(stack);
 
-            boolean speaking = heldRadio && message.startSpeaking;
-            RadioManager.updatePlayerSpeaking(player, speaking);
+            boolean speaking = RadioItem.getRadioState(stack) && message.startSpeaking;
+            RadioManager.updatePlayerSpeaking(player, speaking, frequency);
 
-            if(speaking) {
-                RadioItem.useRadio(player.getHeldItemMainhand(), AddonConfig.generalConfig.radioUse.speakDamage);
-            }
-            return null;
+            if(speaking) RadioItem.useRadio(stack, AddonConfig.generalConfig.radioUse.speakDamage);
+            return new PlayerSpeakingOnRadioPacket(speaking);
         }
     }
 
@@ -58,9 +54,7 @@ public class PlayerSpeakingOnRadioPacket implements IMessage {
         @Override
         @SideOnly(Side.CLIENT)
         public IMessage onMessage(PlayerSpeakingOnRadioPacket message, MessageContext ctx) {
-
-            SoundEvent radioSound = message.startSpeaking ? SoundRegistry.SOUND_RADIO_ON : SoundRegistry.SOUND_RADIO_OFF;
-            Minecraft.getMinecraft().player.playSound(radioSound, 100.0f, 1.0f);
+            ClientProxy.speaking = message.startSpeaking;
             return null;
         }
     }
