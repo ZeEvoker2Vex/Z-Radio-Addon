@@ -1,0 +1,10 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "z-radio:items/radio_off"
+  },
+  "overrides": [
+    { "predicate": { "z-radio:radioState": 0.0 }, "model": "z-radio:item/radio_off" },
+    { "predicate": { "z-radio:radioState": 1.0 }, "model": "z-radio:item/radio_on" }
+  ]
+}
