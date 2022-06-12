@@ -6,6 +6,8 @@ item.z-radio.radio.name=Radio
 subtitles.radio.on=Radio ON
 subtitles.radio.off=Radio OFF
 
+radio.gui.nullInput=An error occurred while opening the radio, please try again.
+
 radio.responseCode.connect.success=You have just connected to the frequency.
 radio.responseCode.connect.invalidFrequency=The frequency given is invalid!
 radio.responseCode.connect.noPerm=This frequency is restricted to you!

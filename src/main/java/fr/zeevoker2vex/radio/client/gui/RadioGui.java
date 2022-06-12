@@ -6,6 +6,7 @@ import fr.zeevoker2vex.radio.common.network.NetworkHandler;
 import fr.zeevoker2vex.radio.common.network.client.RadioResponsePacket;
 import fr.zeevoker2vex.radio.common.network.server.PlayerConnectRadioPacket;
 import fr.zeevoker2vex.radio.common.network.server.PlayerDisconnectRadioPacket;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
@@ -13,6 +14,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.text.TextComponentTranslation;
 
 import java.awt.*;
 import java.io.IOException;
@@ -96,6 +98,11 @@ public class RadioGui extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        if(frequencyField==null) { // Fix #3
+            this.mc.setIngameFocus();
+            Minecraft.getMinecraft().player.sendStatusMessage(new TextComponentTranslation("radio.gui.nullInput"), true);
+            return;
+        }
         frequencyField.drawTextBox();
         drawString(this.fontRenderer, "Mhz", this.width-120, this.height-83+fontRenderer.FONT_HEIGHT, MHZ_TEXT_COLOR);
 

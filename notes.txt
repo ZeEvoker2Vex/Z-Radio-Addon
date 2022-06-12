@@ -1,0 +1,5 @@
+Bugs reported by superrtutur:
+"a notre mort ont l entend encore / des fois ont n entend juste le bruit de la radio mais pas les joueurs"
+
+Suggestion by Sterwim:
+"Pouvoir parler a la radio même si on la pas dans la main (Possibilité peut être de réglé ça dans la config du server)"

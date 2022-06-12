@@ -6,6 +6,8 @@ item.z-radio.radio.name=Radio
 subtitles.radio.on=Radio allumée
 subtitles.radio.off=Radio éteinte
 
+radio.gui.nullInput=Une erreur est survenue à l'ouverture de la radio, veuillez réessayer.
+
 radio.responseCode.connect.success=Vous venez de vous connecter à la fréquence.
 radio.responseCode.connect.invalidFrequency=La fréquence renseignée est invalide !
 radio.responseCode.connect.noPerm=Cette fréquence vous est interdite !
